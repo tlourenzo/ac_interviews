@@ -84,7 +84,6 @@ public class User {
         this.user_id = user_id;
     }
 
-
     @Override
     public String toString() {
         return "User{" +
@@ -94,4 +93,6 @@ public class User {
                 ", email='" + email + '\'' +
                 '}';
     }
+
+
 }

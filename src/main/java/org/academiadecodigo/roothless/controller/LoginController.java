@@ -53,12 +53,13 @@ public class LoginController {
         // If auth succeeds, render a new view
         if (authenticator.authenticate(user.getUsername(), user.getPassword())) {
             model.addAttribute(Attribute.LOGGED_IN_USER, user);
-            log.log(Level.INFO, "Authenticate successful");
-            if(user.getUsername().equals("rodas")){
-                return "rodas";
-            }
-            else{
+            log.log(Level.INFO, "Authenticate successful" + user.toString());
+            if(user.getUsername().equals("admin")){
                 return "redirect:/main";
+            } else if(user.getUsername().equals("rodas")){
+                return "rodas";
+            } else {
+                return "redirect:/interviews";
             }
 
             // If auth fails, render the same view with error message

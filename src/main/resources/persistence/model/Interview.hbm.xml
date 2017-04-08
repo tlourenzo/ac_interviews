@@ -10,13 +10,13 @@
             <generator class="identity"/>
         </id>
         <property name="user_id" column="user_id" type="int" not-null="true"/>
-        <property name="date" column="date" type="calendar_date" not-null="true"/>
+        <property name="date" column="interview_date" type="calendar_date" not-null="true"/>
         <property name="hour" column="hour" type="int" not-null="true"/>
         <property name="company" column="company" type="string"/>
         <property name="interviewer" column="interviewer" type="string"/>
-        <property name="interviewType" column="interviewType" type="string"/>
+        <property name="interviewType" column="interview_type" type="string"/>
         <property name="comments" column="comments" type="string"/>
-        <property name="result" column="result" type="string"/>
+        <property name="status" column="status" type="string"/>
     </class>
 
 </hibernate-mapping>

@@ -20,22 +20,17 @@ public class Interview {
     @Column(name = "interview_id")
     private int interview_id;
 
+    @NotNull
+    @NotBlank
     private int user_id;
 
-    @NotNull(message = "Date is mandatory")
-    @NotBlank(message = "Date is mandatory")
     private Calendar date;
-
-    @NotNull(message = "Hour is mandatory")
-    @NotBlank(message = "Hour is mandatory")
     private int hour;
 
     @NotNull(message = "Company is mandatory")
     @NotBlank(message = "Company is mandatory")
     private String company;
 
-    @NotNull(message = "Interviewer is mandatory")
-    @NotBlank(message = "Interviewer is mandatory")
     private String interviewer;
 
     @NotNull(message = "Interview Type is mandatory")
@@ -43,10 +38,23 @@ public class Interview {
     private String interviewType;
 
     private String comments;
-    private String result;
+
+    @NotNull(message = "Status is mandatory")
+    @NotBlank(message = "Status is mandatory")
+    private String status;
 
     public Interview() {
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+
 
     public Calendar getDate() {
         return date;
@@ -86,14 +94,6 @@ public class Interview {
 
     public void setComments(String comments) {
         this.comments = comments;
-    }
-
-    public String getResult() {
-        return result;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
     }
 
     public int getInterview_id() {
