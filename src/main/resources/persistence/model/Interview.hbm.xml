@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.academiadecodigo.roothless.model.Interview" table="interviews">
+
+        <id name="interview_id" column="interview_id" type="int">
+            <generator class="identity"/>
+        </id>
+        <property name="user_id" column="user_id" type="int" not-null="true"/>
+        <property name="date" column="date" type="calendar_date" not-null="true"/>
+        <property name="hour" column="hour" type="int" not-null="true"/>
+        <property name="company" column="company" type="string"/>
+        <property name="interviewer" column="interviewer" type="string"/>
+        <property name="interviewType" column="interviewType" type="string"/>
+        <property name="comments" column="comments" type="string"/>
+        <property name="result" column="result" type="string"/>
+    </class>
+
+</hibernate-mapping>
