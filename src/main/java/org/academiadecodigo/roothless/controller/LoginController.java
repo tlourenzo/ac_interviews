@@ -3,6 +3,7 @@ package org.academiadecodigo.roothless.controller;
 import org.academiadecodigo.roothless.auth.Attribute;
 import org.academiadecodigo.roothless.auth.Authenticator;
 import org.academiadecodigo.roothless.model.User;
+import org.academiadecodigo.roothless.service.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,7 @@ import java.util.logging.Logger;
 public class LoginController {
 
     @Autowired private Authenticator authenticator;
+    @Autowired private UserService userService;
     Logger log = Logger.getLogger(this.getClass().getSimpleName());
 
     @RequestMapping(method = RequestMethod.GET, value = "/login" )
@@ -52,8 +54,9 @@ public class LoginController {
 
         // If auth succeeds, render a new view
         if (authenticator.authenticate(user.getUsername(), user.getPassword())) {
-            model.addAttribute(Attribute.LOGGED_IN_USER, user);
-            log.log(Level.INFO, "Authenticate successful" + user.toString());
+            User loggedUser = userService.findByName(user.getUsername());
+            model.addAttribute(Attribute.LOGGED_IN_USER, loggedUser);
+            log.log(Level.INFO, "Authenticate successful" + loggedUser.toString());
             if(user.getUsername().equals("admin")){
                 return "redirect:/main";
             } else if(user.getUsername().equals("rodas")){

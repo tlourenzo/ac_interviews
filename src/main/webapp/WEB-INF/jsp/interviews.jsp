@@ -52,7 +52,6 @@
                 <form:option value="Technical"/>
                 <form:option value="Proposal"/>
             </form:select>
-            <%--//TODO If not appearing, change value for inner option closure--%>
         </div>
         <div class="form-group">
             <form:select class="form-control" placeholder="Interview Status" path="status">
@@ -63,7 +62,6 @@
                 <form:option value="Not Hired"/>
                 <form:option value="Future"/>
             </form:select>
-                <%--//TODO If not appearing, change value for inner option closure--%>
         </div>
         <div class="form-group">
             <form:input type="text" class="form-control input-lg" placeholder="YYYY-MM-DD" path="date"/>
@@ -104,8 +102,8 @@
                 <td>${interview.interviewType}</td>
                 <td>${interview.status}</td>
                 <td>
-                    <a href="interviews/edit/${interview.id}" class="btn btn-info">Edit</a>
-                    <a href="interviews/delete/${interview.id}" class="btn btn-danger">Delete</a>
+                    <a href="interviews/edit/${interview.interview_id}" class="btn btn-info">Edit</a>
+                    <a href="interviews/delete/${interview.interview_id}" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         </c:forEach>

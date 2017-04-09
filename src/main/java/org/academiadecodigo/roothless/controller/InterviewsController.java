@@ -52,7 +52,7 @@ public class InterviewsController {
     public String addInterview(Model model, @Valid @ModelAttribute("interview") Interview interview,@ModelAttribute(Attribute.LOGGED_IN_USER) User user, RedirectAttributes redirectAttributes, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            return Attribute.INTERVIEW;
+            return Attribute.INTERVIEW_PAGE;
         }
 
         if (interviewService.getInterviewsByUser(user.getUser_id()) == null) {
@@ -62,11 +62,12 @@ public class InterviewsController {
         } else {
 
             List<Interview> userInterviews = interviewService.getInterviewsByUser(user.getUser_id());
+            interview.setUser_id(user.getUser_id());
             for (Interview i : userInterviews) {
-                if (interview.equals(i)) {
+                if (i.getUser_id()==interview.getUser_id() && i.getDate().equals(interview.getDate()) && i.getHour().equals(interview.getHour())) {
                     redirectAttributes.addFlashAttribute(Attribute.MESSAGE,
                             "User already have one interview at that date/time!");
-                    return "redirect:/" + Attribute.INTERVIEW;
+                    return "redirect:/" + Attribute.INTERVIEW_PAGE;
                 }
             }
 
@@ -77,13 +78,7 @@ public class InterviewsController {
         }
         redirectAttributes.addFlashAttribute(Attribute.MESSAGE,
                 "Added/Updated interview successfully!");
-        return "redirect:/" + Attribute.INTERVIEW;
+        return "redirect:/" + Attribute.INTERVIEW_PAGE;
     }
-
-
-
-
-
-
 
 }

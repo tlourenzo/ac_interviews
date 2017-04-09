@@ -13,6 +13,7 @@ public class Attribute {
     public static final String MESSAGE = "message" ;
     public static final String REGISTER_PAGE = "register" ;
     public static final String INTERVIEW = "interview";
+    public static final String INTERVIEW_PAGE = "interviews";
     public static final String INTERVIEW_LIST = "interviews";
 
 }

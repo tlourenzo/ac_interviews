@@ -4,13 +4,13 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="org.academiadecodigo.roothless.model.Interview" table="interviews">
+    <class name="org.academiadecodigo.roothless.model.Interview" table="interviews" lazy="false">
 
         <id name="interview_id" column="interview_id" type="int">
             <generator class="identity"/>
         </id>
         <property name="user_id" column="user_id" type="int" not-null="true"/>
-        <property name="date" column="interview_date" type="calendar_date" not-null="true"/>
+        <property name="date" column="interview_date" type="string" not-null="true"/>
         <property name="hour" column="hour" type="string" not-null="true"/>
         <property name="company" column="company" type="string" not-null="true"/>
         <property name="interviewer" column="interviewer" type="string"/>

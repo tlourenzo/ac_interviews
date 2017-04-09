@@ -4,7 +4,7 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="org.academiadecodigo.roothless.model.User" table="users">
+    <class name="org.academiadecodigo.roothless.model.User" table="users" lazy="false">
 
         <id name="user_id" column="user_id" type="int">
             <generator class="identity"/>

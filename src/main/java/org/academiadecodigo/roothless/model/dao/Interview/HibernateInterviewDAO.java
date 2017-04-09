@@ -3,6 +3,11 @@ package org.academiadecodigo.roothless.model.dao.Interview;
 import org.academiadecodigo.roothless.model.Interview;
 
 import org.academiadecodigo.roothless.model.dao.AbstractDao;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +26,18 @@ public class HibernateInterviewDAO extends AbstractDao<Interview> implements Int
 
     @Override
     public Interview getInterviewByID(int interview_id) {
-        return null;
+        Interview i = null;
+        try{
+            Session session = super.getHibernateSessionManager().getSession();
+            Query query = session.createQuery("from Interview where interview_id = :interview_id");
+            query.setString("interview_id", ""+interview_id);
+            i = (Interview) query.uniqueResult();
+        }catch(HibernateException hex){
+            System.out.println(hex.getMessage());
+        }finally {
+            //super.getHibernateSessionManager().close();
+        }
+        return i;
     }
 
     @Override
@@ -31,6 +47,18 @@ public class HibernateInterviewDAO extends AbstractDao<Interview> implements Int
 
     @Override
     public List<Interview> getAllInterviewsByUser(int user_id) {
-        return null;
+        List<Interview> list = null;
+        String uid = ""+user_id;
+        try{
+            Session session = super.getHibernateSessionManager().getSession();
+            list = session.createCriteria(Interview.class)
+                    .add(Restrictions.eq("user_id",user_id))
+                    .addOrder(Order.asc("date"))
+                    .list();
+        }catch(HibernateException hex){
+            System.out.println(hex.getMessage());
+        }
+        //TODO SE ESTA MERDA N DER MUDA PARA LIST LIST = query.list()
+        return list;
     }
 }
