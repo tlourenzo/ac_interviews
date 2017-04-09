@@ -9,6 +9,9 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -74,6 +77,42 @@
                     <a href="main/edit/${user.username}" class="btn btn-info">Edit</a>
                     <a href="main/delete/${user.username}" class="btn btn-danger">Delete</a>
                 </td>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
+
+<div>
+    <h3>List of User Interviews</h3>
+    <table class="table table-striped">
+        <tr>
+            <th>Company</th>
+            <th>User</th>
+            <th>Date</th>
+            <th>Hour</th>
+            <th>Type</th>
+            <th>Status</th>
+        </tr>
+
+        <sql:setDataSource var="users" driver="com.mysql.jdbc.Driver"
+                           url="jdbc:mysql://localhost/ac_interviews"
+                           user="testing"/>
+
+        <c:forEach var="interview" items="${interviews}">
+
+            <sql:query dataSource="${users}" var="result">
+                SELECT DISTINCT users.username FROM users,interviews WHERE users.user_id = interviews.user_id AND interviews.user_id = ${interview.user_id};
+            </sql:query>
+
+            <tr>
+                <td>${interview.company}</td>
+                <c:forEach var="u" items="${result.rows}">
+                <td>${u.username}</td>
+                </c:forEach>
+                <td>${interview.date}</td>
+                <td>${interview.hour}</td>
+                <td>${interview.interviewType}</td>
+                <td>${interview.status}</td>
             </tr>
         </c:forEach>
     </table>

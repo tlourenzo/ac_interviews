@@ -2,6 +2,7 @@ package org.academiadecodigo.roothless.controller;
 
 import org.academiadecodigo.roothless.auth.Attribute;
 import org.academiadecodigo.roothless.model.User;
+import org.academiadecodigo.roothless.service.Interview.InterviewService;
 import org.academiadecodigo.roothless.service.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,9 @@ import java.util.logging.Logger;
 public class UserController {
 
     @Autowired private UserService userService;
+
+    @Autowired private InterviewService interviewService;
+
     Logger log = Logger.getLogger(this.getClass().getSimpleName());
 
     @RequestMapping(method = RequestMethod.GET, value = "/main")
@@ -35,6 +39,7 @@ public class UserController {
             model.addAttribute(Attribute.USER, new User());
         }
         model.addAttribute(Attribute.LOGGED_IN_USER, user);
+        model.addAttribute(Attribute.INTERVIEW_LIST, interviewService.getAllInterviews());
         model.addAttribute(Attribute.USER_LIST, userService.findAll());
         return "main";
     }

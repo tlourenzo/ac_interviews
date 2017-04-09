@@ -15,6 +15,7 @@ public interface InterviewService extends Service {
     Interview getInterviewBySeveral(int user_id, String company, String date, String hour);
     Interview getInterviewById(int interview_id);
     List<Interview> getInterviewsByUser(int user_id);
+    List<Interview> getAllInterviews();
     int count(int user_id);
     void updateInterview(Interview interview);
 

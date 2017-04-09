@@ -85,7 +85,7 @@
 </div>
 
 <div>
-    <h3>List of App Users</h3>
+    <h3>List of User Interviews</h3>
     <table class="table table-striped">
         <tr>
             <th>Date</th>

@@ -79,4 +79,18 @@ public class HibernateInterviewDAO extends AbstractDao<Interview> implements Int
         }
         return list;
     }
+
+    @Override
+    public List<Interview> listAllByCompany() {
+        List<Interview> list = null;
+        try{
+            Session session = super.getHibernateSessionManager().getSession();
+            list =  session.createCriteria(Interview.class)
+                    .addOrder(Order.asc("company"))
+                    .list();
+        }catch(HibernateException hex){
+            System.out.println(hex.getMessage());
+        }
+        return list;
+    }
 }

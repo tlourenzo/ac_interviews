@@ -13,4 +13,5 @@ public interface InterviewDao extends DAO<Interview> {
     Interview getInterviewBySeveral(int user_id, String company, String date, String hour);
     Interview getInterviewByUserAndCompany(int user_id, String company);
     List<Interview> getAllInterviewsByUser(int user_id);
+    List<Interview> listAllByCompany();
 }

@@ -52,6 +52,11 @@ public class InterviewServiceImplementation implements InterviewService{
     }
 
     @Override
+    public List<Interview> getAllInterviews() {
+        return interviewDao.listAllByCompany();
+    }
+
+    @Override
     public int count(int user_id) {
         return interviewDao.getAllInterviewsByUser(user_id).size();
     }

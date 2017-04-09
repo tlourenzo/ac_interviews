@@ -24,7 +24,7 @@ public class RegisterController {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/register/new")
-    public String listUsers(Model model, @Valid @ModelAttribute(Attribute.USER) User user) {
+    public String registerUser(Model model, @Valid @ModelAttribute(Attribute.USER) User user) {
 
         if(user == null || user.getUsername().isEmpty() || user.getUsername().equals("")){
             return "redirect:/login";
