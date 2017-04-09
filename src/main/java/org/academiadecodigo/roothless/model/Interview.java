@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Calendar;
 
 /**
@@ -24,8 +26,13 @@ public class Interview {
     @NotBlank
     private int user_id;
 
+    @Pattern(regexp = "^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$", message = "Date is not valid!")
     private Calendar date;
-    private int hour;
+
+
+    @Pattern(regexp = "([01]?[0-9]|2[0-3]):[0-5][0-9]", message = "Hour is not valid!")
+    @Size(min = 5, max = 5)
+    private String hour;
 
     @NotNull(message = "Company is mandatory")
     @NotBlank(message = "Company is mandatory")
@@ -111,11 +118,46 @@ public class Interview {
         this.interview_id = interview_id;
     }
 
-    public int getHour() {
+    public String getHour() {
         return hour;
     }
 
-    public void setHour(int hour) {
+    public void setHour(String hour) {
         this.hour = hour;
+    }
+
+    @Override
+    public String toString() {
+        return "Interview{" +
+                "interview_id=" + interview_id +
+                ", user_id=" + user_id +
+                ", date=" + date +
+                ", hour=" + hour +
+                ", company='" + company + '\'' +
+                ", interviewer='" + interviewer + '\'' +
+                ", interviewType='" + interviewType + '\'' +
+                ", comments='" + comments + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Interview interview = (Interview) o;
+
+        if (user_id != interview.user_id) return false;
+        if (!date.equals(interview.date)) return false;
+        return hour.equals(interview.hour);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = user_id;
+        result = 31 * result + date.hashCode();
+        result = 31 * result + hour.hashCode();
+        return result;
     }
 }

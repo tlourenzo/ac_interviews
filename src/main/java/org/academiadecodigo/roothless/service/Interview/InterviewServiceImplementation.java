@@ -5,6 +5,8 @@ import org.academiadecodigo.roothless.model.dao.Interview.InterviewDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by tlourenzo on 08-04-2017.
  */
@@ -35,7 +37,7 @@ public class InterviewServiceImplementation implements InterviewService{
     }
 
     @Override
-    public Object getInterviewsByUser(int user_id) {
+    public List<Interview> getInterviewsByUser(int user_id) {
         return interviewDao.getAllInterviewsByUser(user_id);
     }
 
