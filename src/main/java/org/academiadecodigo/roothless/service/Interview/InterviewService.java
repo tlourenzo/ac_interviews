@@ -12,6 +12,8 @@ public interface InterviewService extends Service {
     boolean addInterview(Interview interview);
     void removeInterview(Interview interview);
     Interview getInterviewByDate(int day, int month, int year);
+    Interview getInterviewBySeveral(int user_id, String company, String date, String hour);
+    Interview getInterviewById(int interview_id);
     List<Interview> getInterviewsByUser(int user_id);
     int count(int user_id);
     void updateInterview(Interview interview);

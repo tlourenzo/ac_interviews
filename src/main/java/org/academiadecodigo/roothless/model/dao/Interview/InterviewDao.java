@@ -10,6 +10,7 @@ import java.util.List;
  */
 public interface InterviewDao extends DAO<Interview> {
     Interview getInterviewByID(int interview_id);
+    Interview getInterviewBySeveral(int user_id, String company, String date, String hour);
     Interview getInterviewByUserAndCompany(int user_id, String company);
     List<Interview> getAllInterviewsByUser(int user_id);
 }

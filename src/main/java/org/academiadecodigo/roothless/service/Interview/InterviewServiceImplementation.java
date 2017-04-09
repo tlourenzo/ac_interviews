@@ -37,6 +37,16 @@ public class InterviewServiceImplementation implements InterviewService{
     }
 
     @Override
+    public Interview getInterviewBySeveral(int user_id, String company, String date, String hour) {
+        return interviewDao.getInterviewBySeveral(user_id, company, date, hour);
+    }
+
+    @Override
+    public Interview getInterviewById(int interview_id) {
+        return interviewDao.getInterviewByID(interview_id);
+    }
+
+    @Override
     public List<Interview> getInterviewsByUser(int user_id) {
         return interviewDao.getAllInterviewsByUser(user_id);
     }
@@ -48,7 +58,8 @@ public class InterviewServiceImplementation implements InterviewService{
 
     @Override
     public void updateInterview(Interview interview) {
-        //TODO create updating method
+        System.out.println("Updating"+interview.toString());
+        interviewDao.update(interview);
     }
 
     @Override

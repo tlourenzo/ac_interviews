@@ -9,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -42,8 +40,9 @@ public class InterviewsController {
         if(!model.containsAttribute(Attribute.INTERVIEW)){
             model.addAttribute(Attribute.INTERVIEW, new Interview());
         }
-        model.addAttribute(Attribute.LOGGED_IN_USER, user);
 
+        User loggedUser = userService.findByName(user.getUsername());
+        model.addAttribute(Attribute.LOGGED_IN_USER, loggedUser);
         model.addAttribute(Attribute.INTERVIEW_LIST, interviewService.getInterviewsByUser(user.getUser_id()));
         return "interviews";
     }
@@ -54,23 +53,32 @@ public class InterviewsController {
         if (bindingResult.hasErrors()) {
             return Attribute.INTERVIEW_PAGE;
         }
+        List<Interview> userInterviews = interviewService.getInterviewsByUser(user.getUser_id());
 
-        if (interviewService.getInterviewsByUser(user.getUser_id()) == null) {
+        if (userInterviews == null) {
             interview.setUser_id(user.getUser_id());
             interviewService.addInterview(interview);
 
         } else {
-
-            List<Interview> userInterviews = interviewService.getInterviewsByUser(user.getUser_id());
-            interview.setUser_id(user.getUser_id());
+            Interview currentInterview = interviewService.getInterviewBySeveral(user.getUser_id(),interview.getCompany(),interview.getDate(),interview.getHour());
             for (Interview i : userInterviews) {
-                if (i.getUser_id()==interview.getUser_id() && i.getDate().equals(interview.getDate()) && i.getHour().equals(interview.getHour())) {
+
+                if(currentInterview != null){
+                    interview.setInterview_id(currentInterview.getInterview_id());
+                    interview.setUser_id(currentInterview.getUser_id());
+                    interviewService.updateInterview(interview);
                     redirectAttributes.addFlashAttribute(Attribute.MESSAGE,
-                            "User already have one interview at that date/time!");
+                            "Interview Updated successfully");
                     return "redirect:/" + Attribute.INTERVIEW_PAGE;
                 }
-            }
 
+                if (i.getUser_id()==interview.getUser_id() && i.getDate().equals(interview.getDate()) && i.getHour().equals(interview.getHour())) {
+                    redirectAttributes.addFlashAttribute(Attribute.MESSAGE,
+                            "User already has one interview at that date/time!");
+                    return "redirect:/" + Attribute.INTERVIEW_PAGE;
+                }
+
+            }
             interview.setUser_id(user.getUser_id());
             interviewService.addInterview(interview);
 
@@ -79,6 +87,39 @@ public class InterviewsController {
         redirectAttributes.addFlashAttribute(Attribute.MESSAGE,
                 "Added/Updated interview successfully!");
         return "redirect:/" + Attribute.INTERVIEW_PAGE;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/interview/delete/{interview_id}")
+    public String deleteInterview(@PathVariable("interview_id") int interview_id, RedirectAttributes redirectAttributes) {
+
+        Interview interview = interviewService.getInterviewById(interview_id);
+        redirectAttributes.addFlashAttribute(Attribute.MESSAGE,
+                "Deleted interview successfully!");
+        interviewService.removeInterview(interview);
+        return "redirect:/"+Attribute.INTERVIEW_PAGE;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/interview/edit/{interview_id}")
+    public String editInterview(Model model, @ModelAttribute("interview_id") int interview_id, RedirectAttributes redirectAttributes, BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()){
+            return Attribute.INTERVIEW_PAGE;
+        }
+        redirectAttributes.addFlashAttribute(Attribute.INTERVIEW, interviewService.getInterviewById(interview_id));
+        redirectAttributes.addFlashAttribute(Attribute.MESSAGE,
+                "Now editing your Interview Logger!");
+        return "redirect:/"+Attribute.INTERVIEW_PAGE;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value="/interview/logout")
+    public String logout(@ModelAttribute User user, BindingResult bindingResult, SessionStatus status){
+
+        if(bindingResult.hasErrors()){
+            return Attribute.INTERVIEW_PAGE;
+        }
+
+        status.setComplete();
+        return "redirect:/"+Attribute.LOGIN_PAGE;
     }
 
 }

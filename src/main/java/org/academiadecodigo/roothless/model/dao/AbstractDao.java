@@ -37,7 +37,7 @@ public abstract class AbstractDao<T> implements DAO<T> {
         try{
             session = hibernateSessionManager.getSession();
             System.out.println(t.toString());
-            session.save(t);
+            session.saveOrUpdate(t);
         }catch(HibernateException hex){
             session.clear();
             System.out.println(hex.getMessage());
@@ -59,7 +59,7 @@ public abstract class AbstractDao<T> implements DAO<T> {
     public void update(T t) {
         try{
             session = hibernateSessionManager.getSession();
-            session.update(t);
+            session.merge(t);
         }catch(HibernateException hex){
             System.out.println(hex.getMessage());
         }

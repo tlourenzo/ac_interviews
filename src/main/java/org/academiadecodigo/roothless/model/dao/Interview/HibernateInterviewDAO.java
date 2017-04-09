@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by tlourenzo on 08-04-2017.
@@ -19,6 +21,8 @@ import java.util.List;
 @Repository
 @Transactional
 public class HibernateInterviewDAO extends AbstractDao<Interview> implements InterviewDao {
+
+    Logger log = Logger.getLogger(this.getClass().getSimpleName());
 
     public HibernateInterviewDAO() {
         super(Interview.class);
@@ -41,6 +45,22 @@ public class HibernateInterviewDAO extends AbstractDao<Interview> implements Int
     }
 
     @Override
+    public Interview getInterviewBySeveral(int user_id, String company, String date, String hour) {
+        Interview interview = null;
+        try{
+            Session session = super.getHibernateSessionManager().getSession();
+            interview = (Interview) session.createCriteria(Interview.class)
+                    .add(Restrictions.eq("user_id",user_id))
+                    .add(Restrictions.eq("company",company))
+                    .add(Restrictions.eq("date",date))
+                    .add(Restrictions.eq("hour",hour)).uniqueResult();
+        }catch(HibernateException hex){
+            System.out.println(hex.getMessage());
+        }
+        return interview;
+    }
+
+    @Override
     public Interview getInterviewByUserAndCompany(int user_id, String company) {
         return null;
     }
@@ -48,17 +68,15 @@ public class HibernateInterviewDAO extends AbstractDao<Interview> implements Int
     @Override
     public List<Interview> getAllInterviewsByUser(int user_id) {
         List<Interview> list = null;
-        String uid = ""+user_id;
         try{
             Session session = super.getHibernateSessionManager().getSession();
-            list = session.createCriteria(Interview.class)
+            list =  session.createCriteria(Interview.class)
                     .add(Restrictions.eq("user_id",user_id))
                     .addOrder(Order.asc("date"))
                     .list();
         }catch(HibernateException hex){
             System.out.println(hex.getMessage());
         }
-        //TODO SE ESTA MERDA N DER MUDA PARA LIST LIST = query.list()
         return list;
     }
 }

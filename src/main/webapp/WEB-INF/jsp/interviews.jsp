@@ -89,6 +89,7 @@
     <table class="table table-striped">
         <tr>
             <th>Date</th>
+            <th>Hour</th>
             <th>Company</th>
             <th>Type</th>
             <th>Status</th>
@@ -98,12 +99,13 @@
         <c:forEach var="interview" items="${interviews}">
             <tr>
                 <td>${interview.date}</td>
+                <td>${interview.hour}</td>
                 <td>${interview.company}</td>
                 <td>${interview.interviewType}</td>
                 <td>${interview.status}</td>
                 <td>
-                    <a href="interviews/edit/${interview.interview_id}" class="btn btn-info">Edit</a>
-                    <a href="interviews/delete/${interview.interview_id}" class="btn btn-danger">Delete</a>
+                    <a href="interview/edit/${interview.interview_id}" class="btn btn-info">Edit</a>
+                    <a href="interview/delete/${interview.interview_id}" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         </c:forEach>
