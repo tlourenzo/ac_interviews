@@ -6,8 +6,8 @@
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
         <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/ac_interviews"/>
-        <property name="user" value="testing"/>
-        <!--<property name="password" value="0000"/>-->
+        <property name="user" value="root"/>
+        <property name="password" value="sagres90"/>
 
         <!-- c3p0 database connection pool management properties -->
         <property name="minPoolSize" value="1"/>
