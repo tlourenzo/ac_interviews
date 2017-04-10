@@ -22,6 +22,9 @@
     <title>Login Form</title>
 </head>
 <body>
+<div align="center">
+    <img src="http://www.academiadecodigo.org/assets/img/logo_footer.jpg">
+</div>
 <div class="container">
     <br>
     <br>
@@ -32,7 +35,7 @@
     <h3>Welcome Interview App!!</h3>
     <br>
     <br>
-    <div class="panel panel-primary">
+    <div class="panel panel-danger">
         <div class="panel-heading">
             <h4 class="panel-title">User Management</h4>
         </div>
@@ -98,7 +101,7 @@
         </tr>
         <sql:setDataSource var="users" driver="com.mysql.jdbc.Driver"
                            url="jdbc:mysql://localhost/ac_interviews"
-                           user="root" password="sagres90"/>
+                           user="testing"/>
         <c:forEach var="interview" items="${interviews}">
             <sql:query dataSource="${users}" var="result">
                 SELECT DISTINCT users.username FROM users,interviews WHERE users.user_id = interviews.user_id AND interviews.user_id = ${interview.user_id};

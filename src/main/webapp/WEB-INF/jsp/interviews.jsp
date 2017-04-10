@@ -20,6 +20,9 @@
 </head>
 <body>
 <div class="container">
+    <div align="center">
+        <img src="http://www.academiadecodigo.org/assets/img/logo_footer.jpg">
+    </div>
     <br>
     <br>
     <div class="row">
@@ -29,7 +32,7 @@
     <h3>Welcome to your interview registration App</h3>
     <br>
     <br>
-    <div class="panel panel-primary">
+    <div class="panel panel-danger">
         <div class="panel-heading">
             <h4 class="panel-title">Insert new Interview</h4>
         </div>

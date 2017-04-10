@@ -91,8 +91,8 @@
         <configuration>
           <url>http://localhost:8080/manager/text</url>
           <server>tomcat</server>
-          <username>rsilva</username>
-          <password>sagres90</password>
+          <username>tomcat</username>
+          <password>tomcat</password>
           <path>/ac_interviews</path>
         </configuration>
       </plugin>
