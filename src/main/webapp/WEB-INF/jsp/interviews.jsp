@@ -11,27 +11,30 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <title>Code Cadet Interviews</title>
+    <script src="https://use.fontawesome.com/43bdc53d05.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald|PT+Sans" rel="stylesheet">
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>Login Form</title>
 </head>
 <body>
-
-<div>
-    <div>
-        <tr>
-            <th><h1>${loginUser.username}</h1></th>
-            <th><a href="main/logout" class="btn btn-default">Logout</a>
-            </th>
-        </tr>
+<div class="container">
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-8"><h2>You are signedin as: ${loginUser.username}</h2></div>
+        <div class="col-xs-6 col-md-4"><a href="main/logout" class="btn btn-default">Logout</a></div>
     </div>
     <h3>Welcome to your interview registration App</h3>
-    <p></p>
-    <p></p>
-    <h4>Insert new Interview</h4>
-    <form:form class="col-md-12" method="post" modelAttribute="interview" action="interview/add">
-        <p></p>
-        <p></p>
+    <br>
+    <br>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4 class="panel-title">Insert new Interview</h4>
+        </div>
+        <div class="panel-body">
+            <form:form class="col-md-12" method="post" modelAttribute="interview" action="interview/add">
         <div class="form-group">
             <form:input type="text" class="form-control input-lg" placeholder="Company" path="company"/>
             <form:errors path="company" cssClass="error"/>
@@ -81,9 +84,8 @@
     <div>
         <h6>${message}</h6>
     </div>
-
+    </div>
 </div>
-
 <div>
     <h3>List of User Interviews</h3>
     <table class="table table-striped">
