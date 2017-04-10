@@ -7,7 +7,7 @@ CREATE TABLE users(
   username char(50) not null unique,
   password char(50) not null,
   email char(100) not null unique,
-  primary key(user_id)
+  PRIMARY KEY (user_id)
 );
 
 CREATE TABLE interviews(
@@ -21,8 +21,8 @@ CREATE TABLE interviews(
   comments text,
   status enum('Prospect', 'Interview', 'Hired', 'Not Hired', 'Future'),
 
-  primary key(interview_id),
-  foreign key(user_id) references users(user_id)
+  PRIMARY KEY (interview_id),
+  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
 INSERT INTO users (username, password, email) values ('admin','1234','admin@admin.com');
